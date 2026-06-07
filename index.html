@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>台灣景點資料庫</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="header">
+    <h1><a href="index.html">台灣景點資料庫</a></h1>
+    <div class="header-actions">
+      <a href="add.html" class="btn btn-primary">＋ 新增景點</a>
+    </div>
+  </header>
+
+  <div class="filter-bar">
+    <select id="filterCity">
+      <option value="">所有縣市</option>
+    </select>
+    <input type="text" id="searchInput" placeholder="搜尋景點名稱...">
+    <select id="sortBy">
+      <option value="newest">最新優先</option>
+      <option value="rating">評分最高</option>
+      <option value="name">名稱排序</option>
+    </select>
+  </div>
+
+  <div class="container">
+    <div class="loading" id="loadingState">
+      <div class="spinner"></div>
+      <p>載入中...</p>
+    </div>
+
+    <div class="spots-grid" id="spotsGrid"></div>
+
+    <div class="empty-state" id="emptyState" style="display:none;">
+      <div class="empty-icon">🏞️</div>
+      <p>目前沒有景點資料</p>
+      <a href="add.html" class="btn btn-primary">新增第一個景點</a>
+    </div>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

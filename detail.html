@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>景點詳情 - 台灣景點資料庫</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="header">
+    <h1><a href="index.html">台灣景點資料庫</a></h1>
+    <div class="header-actions">
+      <a href="index.html" class="btn btn-secondary">返回首頁</a>
+    </div>
+  </header>
+
+  <div class="detail-container">
+    <div class="loading" id="loadingState">
+      <div class="spinner"></div>
+      <p>載入中...</p>
+    </div>
+
+    <div class="detail-card" id="detailCard" style="display:none;"></div>
+
+    <div class="empty-state" id="errorState" style="display:none;">
+      <div class="empty-icon">❌</div>
+      <p>找不到此景點</p>
+      <a href="index.html" class="btn btn-primary">返回首頁</a>
+    </div>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/detail.js"></script>
+</body>
+</html>
