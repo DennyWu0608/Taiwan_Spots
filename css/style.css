@@ -632,6 +632,58 @@ a:hover {
   font-size: 4rem;
 }
 
+/* ===== 區域選擇頁（首頁） ===== */
+.region-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 24px 20px 40px;
+}
+
+.region-section {
+  margin-bottom: 28px;
+}
+
+.region-title {
+  font-size: 1.2rem;
+  color: var(--primary-dark);
+  border-left: 4px solid var(--primary);
+  padding-left: 12px;
+  margin-bottom: 14px;
+}
+
+.city-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 10px;
+}
+
+.city-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 8px;
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.city-btn:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(46,125,50,0.3);
+  text-decoration: none;
+}
+
+.city-btn:active {
+  transform: translateY(0);
+}
+
 /* ===== RWD ===== */
 @media (max-width: 768px) {
   .header {

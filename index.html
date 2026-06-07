@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>台灣景點資料庫</title>
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/map.css">
 </head>
 <body>
 
@@ -16,191 +15,66 @@
     </div>
   </header>
 
-  <div class="map-page">
-    <p class="map-hint">點擊縣市查看景點</p>
-    <div class="map-container">
-      <svg viewBox="0 0 580 880" class="taiwan-map" xmlns="http://www.w3.org/2000/svg">
+  <div class="region-page">
 
-        <!-- ===== 離島 ===== -->
-        <g class="county" data-city="連江縣">
-          <polygon points="25,235 38,228 48,238 42,252 28,250 22,242" />
-          <text x="35" y="244">連江</text>
-        </g>
-
-        <g class="county" data-city="金門縣">
-          <polygon points="18,310 35,302 48,312 42,326 25,328 15,320" />
-          <text x="32" y="318">金門</text>
-        </g>
-
-        <g class="county" data-city="澎湖縣">
-          <polygon points="42,378 58,368 72,372 78,385 70,402 55,408 40,400 38,390" />
-          <text x="58" y="392">澎湖</text>
-        </g>
-
-        <!-- ===== 本島（大區域先畫，小區域覆蓋在上） ===== -->
-
-        <!-- 新北市（底層，台北和基隆會覆蓋在上面） -->
-        <g class="county" data-city="新北市">
-          <polygon points="
-            240,55 248,48 280,42 315,38 348,36 378,35 398,38 412,50
-            420,78 425,105 385,112 345,118 315,115
-            290,92 260,68
-          " />
-          <text x="385" y="92">新北</text>
-        </g>
-
-        <!-- 台北市（覆蓋在新北上） -->
-        <g class="county" data-city="台北市">
-          <polygon points="288,72 315,65 342,68 358,82 352,102 330,112 298,110 280,95" />
-          <text x="318" y="92">台北</text>
-        </g>
-
-        <!-- 基隆市（覆蓋在新北上） -->
-        <g class="county" data-city="基隆市">
-          <polygon points="368,42 388,37 403,46 400,66 382,76 365,65" />
-          <text x="384" y="58">基隆</text>
-        </g>
-
-        <!-- 桃園市 -->
-        <g class="county" data-city="桃園市">
-          <polygon points="
-            228,55 240,55 260,68 290,92 315,115
-            278,115 242,122 202,118 202,100 215,78
-          " />
-          <text x="252" y="95">桃園</text>
-        </g>
-
-        <!-- 宜蘭縣 -->
-        <g class="county" data-city="宜蘭縣">
-          <polygon points="
-            315,115 345,118 385,112 425,105
-            432,140 438,175 442,210
-            382,200 322,195 318,152
-          " />
-          <text x="382" y="162">宜蘭</text>
-        </g>
-
-        <!-- 新竹（合併市縣顯示） -->
-        <g class="county" data-city="新竹">
-          <polygon points="
-            202,118 242,122 278,115 315,115 318,152
-            285,148 232,160 180,155 167,148 185,130
-          " />
-          <text x="248" y="140">新竹</text>
-        </g>
-
-        <!-- 苗栗縣 -->
-        <g class="county" data-city="苗栗縣">
-          <polygon points="
-            180,155 232,160 285,148 318,152 322,195
-            285,195 225,198 152,198 148,170 167,148
-          " />
-          <text x="238" y="178">苗栗</text>
-        </g>
-
-        <!-- 台中市 -->
-        <g class="county" data-city="台中市">
-          <polygon points="
-            152,198 225,198 285,195 322,195
-            318,245 252,248 172,268
-            118,255 108,242 118,215 132,198
-          " />
-          <text x="222" y="228">台中</text>
-        </g>
-
-        <!-- 花蓮縣 -->
-        <g class="county" data-city="花蓮縣">
-          <polygon points="
-            322,195 382,200 442,210
-            446,250 448,295 448,340 446,385 440,428
-            375,438 298,425
-            305,360 312,300 318,245
-          " />
-          <text x="385" y="325">花蓮</text>
-        </g>
-
-        <!-- 彰化縣 -->
-        <g class="county" data-city="彰化縣">
-          <polygon points="
-            118,255 172,268 172,308
-            105,305 100,280 105,262
-          " />
-          <text x="135" y="285">彰化</text>
-        </g>
-
-        <!-- 南投縣 -->
-        <g class="county" data-city="南投縣">
-          <polygon points="
-            172,268 252,248 318,245
-            312,300 305,360
-            268,358 218,345 172,375
-            172,308
-          " />
-          <text x="242" y="315">南投</text>
-        </g>
-
-        <!-- 雲林縣 -->
-        <g class="county" data-city="雲林縣">
-          <polygon points="
-            105,305 172,308 172,375
-            100,372 98,338
-          " />
-          <text x="132" y="342">雲林</text>
-        </g>
-
-        <!-- 嘉義（合併市縣顯示） -->
-        <g class="county" data-city="嘉義">
-          <polygon points="
-            100,372 172,375 218,345 268,358 305,360
-            298,425 255,420 185,428 105,425 100,405
-          " />
-          <text x="200" y="398">嘉義</text>
-        </g>
-
-        <!-- 台南市 -->
-        <g class="county" data-city="台南市">
-          <polygon points="
-            105,425 185,428 255,420 298,425
-            290,485 268,488 200,498 118,505 112,465
-          " />
-          <text x="198" y="462">台南</text>
-        </g>
-
-        <!-- 台東縣 -->
-        <g class="county" data-city="台東縣">
-          <polygon points="
-            298,425 375,438 440,428
-            430,470 418,510 402,550 382,590 360,632
-            298,625 278,548 290,485
-          " />
-          <text x="365" y="530">台東</text>
-        </g>
-
-        <!-- 高雄市 -->
-        <g class="county" data-city="高雄市">
-          <polygon points="
-            118,505 200,498 268,488 290,485
-            278,548 225,582 150,598
-            138,558 125,525
-          " />
-          <text x="205" y="545">高雄</text>
-        </g>
-
-        <!-- 屏東縣 -->
-        <g class="county" data-city="屏東縣">
-          <polygon points="
-            150,598 225,582 278,548
-            298,625 360,632
-            335,672 310,712 285,752 262,792 248,822 240,845
-            232,828 220,792 205,748 188,698 172,652 158,610
-          " />
-          <text x="265" y="705">屏東</text>
-        </g>
-
-      </svg>
+    <!-- 北部 -->
+    <div class="region-section">
+      <h2 class="region-title">北部</h2>
+      <div class="city-grid">
+        <a href="city.html?city=基隆市" class="city-btn">基隆市</a>
+        <a href="city.html?city=台北市" class="city-btn">台北市</a>
+        <a href="city.html?city=新北市" class="city-btn">新北市</a>
+        <a href="city.html?city=桃園市" class="city-btn">桃園市</a>
+        <a href="city.html?city=新竹市" class="city-btn">新竹市</a>
+        <a href="city.html?city=新竹縣" class="city-btn">新竹縣</a>
+        <a href="city.html?city=宜蘭縣" class="city-btn">宜蘭縣</a>
+      </div>
     </div>
+
+    <!-- 中部 -->
+    <div class="region-section">
+      <h2 class="region-title">中部</h2>
+      <div class="city-grid">
+        <a href="city.html?city=苗栗縣" class="city-btn">苗栗縣</a>
+        <a href="city.html?city=台中市" class="city-btn">台中市</a>
+        <a href="city.html?city=彰化縣" class="city-btn">彰化縣</a>
+        <a href="city.html?city=南投縣" class="city-btn">南投縣</a>
+        <a href="city.html?city=雲林縣" class="city-btn">雲林縣</a>
+      </div>
+    </div>
+
+    <!-- 南部 -->
+    <div class="region-section">
+      <h2 class="region-title">南部</h2>
+      <div class="city-grid">
+        <a href="city.html?city=嘉義市" class="city-btn">嘉義市</a>
+        <a href="city.html?city=嘉義縣" class="city-btn">嘉義縣</a>
+        <a href="city.html?city=台南市" class="city-btn">台南市</a>
+        <a href="city.html?city=高雄市" class="city-btn">高雄市</a>
+        <a href="city.html?city=屏東縣" class="city-btn">屏東縣</a>
+      </div>
+    </div>
+
+    <!-- 東部 -->
+    <div class="region-section">
+      <h2 class="region-title">東部</h2>
+      <div class="city-grid">
+        <a href="city.html?city=花蓮縣" class="city-btn">花蓮縣</a>
+        <a href="city.html?city=台東縣" class="city-btn">台東縣</a>
+      </div>
+    </div>
+
+    <!-- 離島 -->
+    <div class="region-section">
+      <h2 class="region-title">離島</h2>
+      <div class="city-grid">
+        <a href="city.html?city=澎湖縣" class="city-btn">澎湖縣</a>
+        <a href="city.html?city=金門縣" class="city-btn">金門縣</a>
+        <a href="city.html?city=連江縣" class="city-btn">連江縣</a>
+      </div>
+    </div>
+
   </div>
 
-  <script src="js/map.js"></script>
 </body>
 </html>
