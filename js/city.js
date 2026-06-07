@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
   addEmptyBtn.href = addUrl;
 
   let allSpots = [];
-  let currentCategory = '食';
+  let currentCategory = '餐';
 
   // 即時監聽該城市的景點
   db.collection('spots')
@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // 圖示
       const noImg = document.createElement('div');
       noImg.className = 'no-image';
-      const icons = { '食': '🍽️', '住': '🏨', '行': '🚗' };
+      const icons = { '餐': '🍽️', '住': '🏨', '景': '🏞️' };
       noImg.textContent = icons[spot.category] || '🏔️';
       card.appendChild(noImg);
 

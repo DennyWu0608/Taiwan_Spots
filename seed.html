@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>初始化景點資料</title>
+</head>
+<body>
+  <h2>初始化景點資料</h2>
+  <p id="status">準備中...</p>
+  <ul id="log"></ul>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script>
+    const seedData = [
+      // === 台北市 ===
+      { name: '鼎泰豐（信義店）', city: '台北市', category: '餐', address: '台北市信義區信義路二段194號', description: '世界知名的小籠包餐廳', rating: 5, tags: ['小籠包', '米其林'] },
+      { name: '饒河街夜市', city: '台北市', category: '餐', address: '台北市松山區饒河街', description: '台北知名夜市，胡椒餅必吃', rating: 4, tags: ['夜市', '小吃'] },
+      { name: '台北101', city: '台北市', category: '景', address: '台北市信義區信義路五段7號', description: '台北地標，觀景台可俯瞰全市', rating: 5, tags: ['地標', '觀景'] },
+      { name: '故宮博物院', city: '台北市', category: '景', address: '台北市士林區至善路二段221號', description: '世界四大博物館之一', rating: 5, tags: ['博物館', '文化'] },
+      { name: '北投溫泉', city: '台北市', category: '住', address: '台北市北投區', description: '台北近郊的溫泉勝地', rating: 4, tags: ['溫泉', '放鬆'] },
+
+      // === 新北市 ===
+      { name: '九份老街', city: '新北市', category: '景', address: '新北市瑞芳區基山街', description: '充滿懷舊風情的山城老街', rating: 5, tags: ['老街', '夜景'] },
+      { name: '淡水老街', city: '新北市', category: '餐', address: '新北市淡水區中正路', description: '沿河美食街，阿給和魚丸必吃', rating: 4, tags: ['老街', '小吃'] },
+      { name: '十分瀑布', city: '新北市', category: '景', address: '新北市平溪區', description: '台灣版尼加拉瀑布', rating: 4, tags: ['瀑布', '自然'] },
+
+      // === 台中市 ===
+      { name: '宮原眼科', city: '台中市', category: '餐', address: '台中市中區中山路20號', description: '冰淇淋和伴手禮名店', rating: 4, tags: ['冰淇淋', '伴手禮'] },
+      { name: '逢甲夜市', city: '台中市', category: '餐', address: '台中市西屯區文華路', description: '台灣最大的觀光夜市', rating: 4, tags: ['夜市', '小吃'] },
+      { name: '高美濕地', city: '台中市', category: '景', address: '台中市清水區美堤街', description: '絕美夕陽和濕地生態', rating: 5, tags: ['夕陽', '自然'] },
+      { name: '台中歌劇院', city: '台中市', category: '景', address: '台中市西屯區惠來路二段101號', description: '世界九大新地標建築', rating: 4, tags: ['建築', '藝文'] },
+
+      // === 台南市 ===
+      { name: '度小月擔仔麵', city: '台南市', category: '餐', address: '台南市中西區中正路16號', description: '百年老店，台南必吃', rating: 5, tags: ['擔仔麵', '老店'] },
+      { name: '赤崁樓', city: '台南市', category: '景', address: '台南市中西區民族路二段212號', description: '荷蘭時期古蹟', rating: 4, tags: ['古蹟', '歷史'] },
+      { name: '安平古堡', city: '台南市', category: '景', address: '台南市安平區國勝路82號', description: '台灣最古老的城堡', rating: 4, tags: ['古蹟', '歷史'] },
+
+      // === 高雄市 ===
+      { name: '瑞豐夜市', city: '高雄市', category: '餐', address: '高雄市左營區裕誠路', description: '高雄最熱鬧的夜市', rating: 4, tags: ['夜市', '小吃'] },
+      { name: '駁二藝術特區', city: '高雄市', category: '景', address: '高雄市鹽埕區大勇路1號', description: '文創藝術園區', rating: 4, tags: ['藝術', '文創'] },
+      { name: '旗津海產街', city: '高雄市', category: '餐', address: '高雄市旗津區廟前路', description: '新鮮海產一條街', rating: 4, tags: ['海鮮', '海邊'] },
+
+      // === 花蓮縣 ===
+      { name: '太魯閣國家公園', city: '花蓮縣', category: '景', address: '花蓮縣秀林鄉富世291號', description: '壯麗的峽谷地形', rating: 5, tags: ['國家公園', '峽谷'] },
+      { name: '七星潭', city: '花蓮縣', category: '景', address: '花蓮縣新城鄉', description: '美麗的礫石海灘', rating: 4, tags: ['海灘', '自然'] },
+      { name: '公正包子', city: '花蓮縣', category: '餐', address: '花蓮縣花蓮市中山路199-2號', description: '花蓮必吃早餐', rating: 4, tags: ['包子', '早餐'] },
+
+      // === 台東縣 ===
+      { name: '伯朗大道', city: '台東縣', category: '景', address: '台東縣池上鄉', description: '一望無際的稻田美景', rating: 5, tags: ['稻田', '自然'] },
+      { name: '三仙台', city: '台東縣', category: '景', address: '台東縣成功鎮', description: '八拱跨海步橋', rating: 4, tags: ['海景', '步道'] },
+
+      // === 宜蘭縣 ===
+      { name: '羅東夜市', city: '宜蘭縣', category: '餐', address: '宜蘭縣羅東鎮民生路', description: '宜蘭最有名的夜市', rating: 4, tags: ['夜市', '小吃'] },
+      { name: '礁溪溫泉', city: '宜蘭縣', category: '住', address: '宜蘭縣礁溪鄉', description: '平價溫泉泡湯勝地', rating: 4, tags: ['溫泉', '放鬆'] },
+
+      // === 南投縣 ===
+      { name: '日月潭', city: '南投縣', category: '景', address: '南投縣魚池鄉', description: '台灣最美的高山湖泊', rating: 5, tags: ['湖泊', '自然'] },
+      { name: '清境農場', city: '南投縣', category: '景', address: '南投縣仁愛鄉仁和路170號', description: '高山牧場，綿羊秀', rating: 4, tags: ['農場', '高山'] },
+
+      // === 屏東縣 ===
+      { name: '墾丁大街', city: '屏東縣', category: '餐', address: '屏東縣恆春鎮墾丁路', description: '墾丁最熱鬧的美食街', rating: 4, tags: ['夜市', '海邊'] },
+      { name: '墾丁國家公園', city: '屏東縣', category: '景', address: '屏東縣恆春鎮', description: '台灣最南端的國家公園', rating: 5, tags: ['國家公園', '海灘'] },
+    ];
+
+    async function seed() {
+      const status = document.getElementById('status');
+      const log = document.getElementById('log');
+      let count = 0;
+
+      status.textContent = '正在寫入 ' + seedData.length + ' 筆資料...';
+
+      for (const spot of seedData) {
+        try {
+          await db.collection('spots').add({
+            ...spot,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+          });
+          count++;
+          const li = document.createElement('li');
+          li.textContent = '✅ ' + spot.city + ' - ' + spot.name;
+          log.appendChild(li);
+        } catch (e) {
+          const li = document.createElement('li');
+          li.textContent = '❌ ' + spot.name + ': ' + e.message;
+          li.style.color = 'red';
+          log.appendChild(li);
+        }
+      }
+
+      status.textContent = '完成！共寫入 ' + count + ' / ' + seedData.length + ' 筆。可以關掉這個頁面了。';
+    }
+
+    seed();
+  </script>
+</body>
+</html>
