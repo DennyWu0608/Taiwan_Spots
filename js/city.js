@@ -33,11 +33,17 @@ document.addEventListener('DOMContentLoaded', () => {
   // 即時監聽該城市的景點
   db.collection('spots')
     .where('city', '==', city)
-    .orderBy('createdAt', 'desc')
     .onSnapshot((snapshot) => {
       allSpots = [];
       snapshot.forEach(doc => {
         allSpots.push({ id: doc.id, ...doc.data() });
+      });
+
+      // 在 JS 端排序（最新優先）
+      allSpots.sort((a, b) => {
+        const ta = a.createdAt ? a.createdAt.toMillis() : 0;
+        const tb = b.createdAt ? b.createdAt.toMillis() : 0;
+        return tb - ta;
       });
 
       loadingState.style.display = 'none';
@@ -45,12 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, (error) => {
       console.error('載入失敗:', error);
       loadingState.style.display = 'none';
-
-      if (error.code === 'failed-precondition') {
-        emptyState.style.display = 'block';
-        document.getElementById('emptyText').textContent =
-          '需要建立 Firestore 索引，請打開瀏覽器 Console 查看連結';
-      }
+      showToast('載入失敗：' + error.message, true);
     });
 
   // 分類標籤切換
