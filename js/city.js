@@ -1,5 +1,11 @@
 // ===== 城市頁面邏輯 =====
 
+// 地圖上合併的區域 → 對應的實際縣市名
+const CITY_GROUPS = {
+  '新竹': ['新竹市', '新竹縣', '新竹'],
+  '嘉義': ['嘉義市', '嘉義縣', '嘉義']
+};
+
 document.addEventListener('DOMContentLoaded', () => {
   const cityTitle = document.getElementById('cityTitle');
   const spotsGrid = document.getElementById('spotsGrid');
@@ -30,9 +36,12 @@ document.addEventListener('DOMContentLoaded', () => {
   let allSpots = [];
   let currentCategory = '食';
 
-  // 即時監聽該城市的景點
+  // 判斷是否為合併區域
+  const cityList = CITY_GROUPS[city] || [city];
+
+  // 即時監聽景點（支援合併查詢）
   db.collection('spots')
-    .where('city', '==', city)
+    .where('city', 'in', cityList)
     .orderBy('createdAt', 'desc')
     .onSnapshot((snapshot) => {
       allSpots = [];
@@ -46,7 +55,6 @@ document.addEventListener('DOMContentLoaded', () => {
       console.error('載入失敗:', error);
       loadingState.style.display = 'none';
 
-      // 如果是索引錯誤，顯示提示
       if (error.code === 'failed-precondition') {
         emptyState.style.display = 'block';
         document.getElementById('emptyText').textContent =
@@ -70,7 +78,6 @@ document.addEventListener('DOMContentLoaded', () => {
   function renderSpots() {
     const searchText = searchInput.value.trim().toLowerCase();
 
-    // 篩選分類 + 搜尋
     const filtered = allSpots.filter(spot => {
       if (spot.category !== currentCategory) return false;
       if (searchText && !spot.name.toLowerCase().includes(searchText)) return false;
