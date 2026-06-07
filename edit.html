@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>編輯景點 - 台灣景點資料庫</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="header">
+    <h1><a href="index.html">台灣景點資料庫</a></h1>
+    <div class="header-actions">
+      <a href="index.html" class="btn btn-secondary">返回首頁</a>
+    </div>
+  </header>
+
+  <div class="form-container">
+    <div class="loading" id="loadingState">
+      <div class="spinner"></div>
+      <p>載入中...</p>
+    </div>
+
+    <div class="form-card" id="editCard" style="display:none;">
+      <h2>編輯景點</h2>
+      <form id="editForm">
+
+        <div class="form-group">
+          <label>景點名稱 <span class="required">*</span></label>
+          <input type="text" id="spotName" required placeholder="例：九份老街" maxlength="100">
+        </div>
+
+        <div class="form-group">
+          <label>所屬縣市 <span class="required">*</span></label>
+          <select id="spotCity" required>
+            <option value="">請選擇縣市</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>分類 <span class="required">*</span></label>
+          <div class="category-select">
+            <label class="cat-option">
+              <input type="radio" name="category" value="餐">
+              <span class="cat-btn">🍽️ 餐</span>
+            </label>
+            <label class="cat-option">
+              <input type="radio" name="category" value="住">
+              <span class="cat-btn">🏨 住</span>
+            </label>
+            <label class="cat-option">
+              <input type="radio" name="category" value="景">
+              <span class="cat-btn">🏞️ 景</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>地址</label>
+          <input type="text" id="spotAddress" placeholder="例：新北市瑞芳區基山街">
+        </div>
+
+        <div class="form-group">
+          <label>描述</label>
+          <textarea id="spotDescription" placeholder="介紹一下這個景點..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>評分</label>
+          <div class="star-rating">
+            <input type="radio" id="star5" name="rating" value="5"><label for="star5">&#9733;</label>
+            <input type="radio" id="star4" name="rating" value="4"><label for="star4">&#9733;</label>
+            <input type="radio" id="star3" name="rating" value="3"><label for="star3">&#9733;</label>
+            <input type="radio" id="star2" name="rating" value="2"><label for="star2">&#9733;</label>
+            <input type="radio" id="star1" name="rating" value="1"><label for="star1">&#9733;</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>標籤（用逗號分隔）</label>
+          <input type="text" id="spotTags" placeholder="例：美食, 夜景, 老街">
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" id="submitBtn">儲存修改</button>
+          <a href="index.html" class="btn btn-secondary" id="cancelBtn">取消</a>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/edit.js"></script>
+</body>
+</html>

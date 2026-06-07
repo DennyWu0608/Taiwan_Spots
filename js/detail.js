@@ -102,10 +102,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     actions.className = 'detail-actions';
 
     const backBtn = document.createElement('a');
-    backBtn.href = 'index.html';
+    backBtn.href = spot.city ? 'city.html?city=' + encodeURIComponent(spot.city) : 'index.html';
     backBtn.className = 'btn btn-secondary';
     backBtn.textContent = '← 返回列表';
     actions.appendChild(backBtn);
+
+    const editBtn = document.createElement('a');
+    editBtn.href = 'edit.html?id=' + encodeURIComponent(spotId);
+    editBtn.className = 'btn btn-primary';
+    editBtn.textContent = '✏️ 編輯';
+    actions.appendChild(editBtn);
 
     const deleteBtn = document.createElement('button');
     deleteBtn.className = 'btn btn-danger';
