@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>台灣景點資料庫</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/map.css">
 </head>
 <body>
 
@@ -15,37 +16,161 @@
     </div>
   </header>
 
-  <div class="filter-bar">
-    <select id="filterCity">
-      <option value="">所有縣市</option>
-    </select>
-    <input type="text" id="searchInput" placeholder="搜尋景點名稱...">
-    <select id="sortBy">
-      <option value="newest">最新優先</option>
-      <option value="rating">評分最高</option>
-      <option value="name">名稱排序</option>
-    </select>
+  <div class="map-page">
+    <p class="map-hint">點擊縣市查看景點</p>
+    <div class="map-container">
+      <svg viewBox="0 0 500 780" class="taiwan-map" xmlns="http://www.w3.org/2000/svg">
+
+        <!-- 台灣本島輪廓 -->
+        <path class="island-outline" d="
+          M 295,30
+          C 310,35 330,50 340,70
+          Q 355,95 350,120
+          C 348,140 355,160 358,180
+          Q 362,210 360,240
+          C 358,270 355,300 350,330
+          Q 345,360 340,390
+          C 335,420 325,450 310,480
+          Q 295,510 280,540
+          C 265,565 245,590 225,615
+          Q 210,635 195,650
+          C 180,665 165,675 150,680
+          Q 135,685 125,675
+          C 115,660 110,640 115,620
+          Q 118,600 120,580
+          C 122,555 118,530 115,510
+          Q 110,485 108,460
+          C 105,435 100,410 98,385
+          Q 95,355 95,330
+          C 95,300 100,270 108,245
+          Q 115,220 125,200
+          C 135,175 148,155 165,140
+          Q 180,125 195,110
+          C 210,95 225,80 240,65
+          Q 255,50 270,40
+          C 280,35 288,30 295,30
+          Z" />
+
+        <!-- 各縣市可點擊區域 -->
+        <!-- 北部 -->
+        <g class="city-group" data-city="基隆市">
+          <circle cx="310" cy="62" r="14" class="city-dot" />
+          <text x="310" y="67" class="city-label">基隆</text>
+        </g>
+
+        <g class="city-group" data-city="台北市">
+          <circle cx="270" cy="78" r="16" class="city-dot" />
+          <text x="270" y="83" class="city-label">台北</text>
+        </g>
+
+        <g class="city-group" data-city="新北市">
+          <circle cx="305" cy="100" r="16" class="city-dot" />
+          <text x="305" y="105" class="city-label">新北</text>
+        </g>
+
+        <g class="city-group" data-city="桃園市">
+          <circle cx="235" cy="112" r="16" class="city-dot" />
+          <text x="235" y="117" class="city-label">桃園</text>
+        </g>
+
+        <g class="city-group" data-city="新竹市">
+          <circle cx="200" cy="145" r="14" class="city-dot" />
+          <text x="200" y="150" class="city-label">竹市</text>
+        </g>
+
+        <g class="city-group" data-city="新竹縣">
+          <circle cx="240" cy="148" r="14" class="city-dot" />
+          <text x="240" y="153" class="city-label">竹縣</text>
+        </g>
+
+        <!-- 中部 -->
+        <g class="city-group" data-city="苗栗縣">
+          <circle cx="210" cy="185" r="16" class="city-dot" />
+          <text x="210" y="190" class="city-label">苗栗</text>
+        </g>
+
+        <g class="city-group" data-city="台中市">
+          <circle cx="185" cy="230" r="18" class="city-dot" />
+          <text x="185" y="235" class="city-label">台中</text>
+        </g>
+
+        <g class="city-group" data-city="彰化縣">
+          <circle cx="148" cy="270" r="16" class="city-dot" />
+          <text x="148" y="275" class="city-label">彰化</text>
+        </g>
+
+        <g class="city-group" data-city="南投縣">
+          <circle cx="200" cy="285" r="16" class="city-dot" />
+          <text x="200" y="290" class="city-label">南投</text>
+        </g>
+
+        <g class="city-group" data-city="雲林縣">
+          <circle cx="140" cy="320" r="16" class="city-dot" />
+          <text x="140" y="325" class="city-label">雲林</text>
+        </g>
+
+        <!-- 南部 -->
+        <g class="city-group" data-city="嘉義市">
+          <circle cx="150" cy="355" r="14" class="city-dot" />
+          <text x="150" y="360" class="city-label">嘉市</text>
+        </g>
+
+        <g class="city-group" data-city="嘉義縣">
+          <circle cx="190" cy="350" r="14" class="city-dot" />
+          <text x="190" y="355" class="city-label">嘉縣</text>
+        </g>
+
+        <g class="city-group" data-city="台南市">
+          <circle cx="140" cy="400" r="18" class="city-dot" />
+          <text x="140" y="405" class="city-label">台南</text>
+        </g>
+
+        <g class="city-group" data-city="高雄市">
+          <circle cx="165" cy="460" r="18" class="city-dot" />
+          <text x="165" y="465" class="city-label">高雄</text>
+        </g>
+
+        <g class="city-group" data-city="屏東縣">
+          <circle cx="195" cy="530" r="18" class="city-dot" />
+          <text x="195" y="535" class="city-label">屏東</text>
+        </g>
+
+        <!-- 東部 -->
+        <g class="city-group" data-city="宜蘭縣">
+          <circle cx="330" cy="140" r="16" class="city-dot" />
+          <text x="330" y="145" class="city-label">宜蘭</text>
+        </g>
+
+        <g class="city-group" data-city="花蓮縣">
+          <circle cx="310" cy="270" r="18" class="city-dot" />
+          <text x="310" y="275" class="city-label">花蓮</text>
+        </g>
+
+        <g class="city-group" data-city="台東縣">
+          <circle cx="280" cy="430" r="18" class="city-dot" />
+          <text x="280" y="435" class="city-label">台東</text>
+        </g>
+
+        <!-- 離島 -->
+        <g class="city-group" data-city="澎湖縣">
+          <circle cx="48" cy="380" r="16" class="city-dot island" />
+          <text x="48" y="385" class="city-label">澎湖</text>
+        </g>
+
+        <g class="city-group" data-city="金門縣">
+          <circle cx="48" cy="310" r="14" class="city-dot island" />
+          <text x="48" y="315" class="city-label">金門</text>
+        </g>
+
+        <g class="city-group" data-city="連江縣">
+          <circle cx="48" cy="245" r="14" class="city-dot island" />
+          <text x="48" y="250" class="city-label">連江</text>
+        </g>
+
+      </svg>
+    </div>
   </div>
 
-  <div class="container">
-    <div class="loading" id="loadingState">
-      <div class="spinner"></div>
-      <p>載入中...</p>
-    </div>
-
-    <div class="spots-grid" id="spotsGrid"></div>
-
-    <div class="empty-state" id="emptyState" style="display:none;">
-      <div class="empty-icon">🏞️</div>
-      <p>目前沒有景點資料</p>
-      <a href="add.html" class="btn btn-primary">新增第一個景點</a>
-    </div>
-  </div>
-
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
-  <script src="js/firebase-config.js"></script>
-  <script src="js/app.js"></script>
+  <script src="js/map.js"></script>
 </body>
 </html>

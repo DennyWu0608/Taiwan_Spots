@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>城市景點 - 台灣景點資料庫</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="header">
+    <h1><a href="index.html">台灣景點資料庫</a></h1>
+    <div class="header-actions">
+      <a href="index.html" class="btn btn-secondary">← 回地圖</a>
+      <a href="add.html" class="btn btn-primary" id="addBtn">＋ 新增景點</a>
+    </div>
+  </header>
+
+  <div class="city-page">
+    <h2 class="city-title" id="cityTitle"></h2>
+
+    <!-- 食住行分類標籤 -->
+    <div class="category-tabs">
+      <button class="tab active" data-cat="食">🍽️ 食</button>
+      <button class="tab" data-cat="住">🏨 住</button>
+      <button class="tab" data-cat="行">🚗 行</button>
+    </div>
+
+    <!-- 搜尋 -->
+    <div class="city-search">
+      <input type="text" id="searchInput" placeholder="搜尋景點名稱...">
+    </div>
+
+    <!-- 載入中 -->
+    <div class="loading" id="loadingState">
+      <div class="spinner"></div>
+      <p>載入中...</p>
+    </div>
+
+    <!-- 景點列表 -->
+    <div class="container">
+      <div class="spots-grid" id="spotsGrid"></div>
+
+      <div class="empty-state" id="emptyState" style="display:none;">
+        <div class="empty-icon">📭</div>
+        <p id="emptyText">此分類尚無景點</p>
+        <a href="add.html" class="btn btn-primary" id="addEmptyBtn">新增第一個景點</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/city.js"></script>
+</body>
+</html>

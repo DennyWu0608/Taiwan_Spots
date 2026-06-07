@@ -404,6 +404,104 @@ a:hover {
   margin-top: 24px;
 }
 
+/* ===== 分類選擇（表單） ===== */
+.category-select {
+  display: flex;
+  gap: 10px;
+}
+
+.cat-option input {
+  display: none;
+}
+
+.cat-btn {
+  display: inline-block;
+  padding: 10px 24px;
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.cat-option input:checked + .cat-btn {
+  border-color: var(--primary);
+  background: #e8f5e9;
+  color: var(--primary-dark);
+  font-weight: 600;
+}
+
+.cat-btn:hover {
+  border-color: var(--primary-light);
+  background: #f1f8e9;
+}
+
+/* ===== 城市頁面 ===== */
+.city-page {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.city-title {
+  font-size: 1.8rem;
+  color: var(--primary-dark);
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.category-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 20px;
+  border-bottom: 2px solid var(--border);
+}
+
+.tab {
+  padding: 12px 32px;
+  border: none;
+  background: none;
+  font-size: 1.1rem;
+  font-family: inherit;
+  cursor: pointer;
+  color: var(--text-light);
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s;
+  margin-bottom: -2px;
+}
+
+.tab:hover {
+  color: var(--primary);
+}
+
+.tab.active {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+  font-weight: 600;
+}
+
+.city-search {
+  max-width: 400px;
+  margin: 0 auto 20px;
+}
+
+.city-search input {
+  width: 100%;
+  padding: 10px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+  font-family: inherit;
+}
+
+.city-search input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(46,125,50,0.2);
+}
+
 /* ===== 詳情頁 ===== */
 .detail-container {
   max-width: 800px;

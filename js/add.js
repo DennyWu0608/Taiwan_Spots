@@ -8,12 +8,20 @@ document.addEventListener('DOMContentLoaded', () => {
   // 填入縣市選單
   populateCitySelect(citySelect);
 
+  // 如果 URL 有帶城市參數，自動選取
+  const params = new URLSearchParams(window.location.search);
+  const presetCity = params.get('city');
+  if (presetCity) {
+    citySelect.value = presetCity;
+  }
+
   // 提交表單
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const name = document.getElementById('spotName').value.trim();
     const city = citySelect.value;
+    const category = document.querySelector('input[name="category"]:checked').value;
     const address = document.getElementById('spotAddress').value.trim();
     const description = document.getElementById('spotDescription').value.trim();
     const ratingInput = document.querySelector('input[name="rating"]:checked');
@@ -31,10 +39,10 @@ document.addEventListener('DOMContentLoaded', () => {
     submitBtn.textContent = '新增中...';
 
     try {
-      // 寫入 Firestore
       await db.collection('spots').add({
         name,
         city,
+        category,
         address,
         description,
         rating,
@@ -44,7 +52,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
       showToast('景點新增成功！');
       setTimeout(() => {
-        window.location.href = 'index.html';
+        // 導回該城市頁面
+        window.location.href = 'city.html?city=' + encodeURIComponent(city);
       }, 1000);
 
     } catch (error) {
